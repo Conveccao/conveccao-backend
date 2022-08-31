@@ -1,4 +1,4 @@
-export default class Estacao{
+export default class Station{
     private _id: number;
     private _lat: number;
     private _lon: number;
