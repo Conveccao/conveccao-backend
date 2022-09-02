@@ -8,13 +8,13 @@ export class Sensor {
     @PrimaryGeneratedColumn()
     id: number
 
-    @ManyToOne(() => SensorType, sensorType => sensorType.sensors)
-    @JoinColumn({name: 'id_sensorType'})
-    sensorType: SensorType /// tipo de sendor
-
     @ManyToOne(() => Station, station => station.sensors)
-    @JoinColumn({name: "id_station"})
+    @JoinColumn({name: "station_id"})
     station: Station /// qual estacao pertence
+
+    @ManyToOne(() =>SensorType, sensorType => sensorType.sensors)
+    @JoinColumn({name: "sensorType_id"})
+    sensorType: SensorType
 
     @Column({type:'text', nullable:false})
     description: string

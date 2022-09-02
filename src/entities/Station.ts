@@ -17,4 +17,5 @@ export class Station {
 
     @OneToMany(() => Sensor, sensor => sensor.station)
     sensors: Sensor[]
+
 }
