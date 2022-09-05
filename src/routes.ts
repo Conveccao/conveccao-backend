@@ -11,4 +11,5 @@ routes.post('/stations', new StationControllers().create)
 routes.post('/sensorType', new SensorTypeControllers().create)
 routes.post('/sensor', new SensorControllers().create)
 
+
 export default routes

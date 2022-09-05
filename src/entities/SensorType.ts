@@ -1,5 +1,4 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Sensor } from "./Sensor";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('sensorsType')
 export class SensorType {
@@ -20,7 +19,4 @@ export class SensorType {
     
     @Column({type: 'text'})
     secondary_measure: string //// unidade de medida secundaria tipo Litros por metro quadrado
-
-    @OneToMany(() => Sensor, sensor => sensor.sensorType)
-    sensors: Sensor[]
 }

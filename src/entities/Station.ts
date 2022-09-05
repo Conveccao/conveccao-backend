@@ -1,5 +1,4 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Sensor } from "./Sensor";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('stations')
 export class Station {
@@ -12,10 +11,6 @@ export class Station {
     @Column({type: 'float', nullable:false})
     lon: number
 
-    @Column({length:150, nullable:false}) 
+    @Column({type: 'text', nullable:false}) 
     reference: string     ///referencia de onde esta a estação, tipo endereço,
-
-    @OneToMany(() => Sensor, sensor => sensor.station)
-    sensors: Sensor[]
-
 }

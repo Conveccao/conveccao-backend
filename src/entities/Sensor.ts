@@ -1,20 +1,15 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Gauged } from "./Gauged";
-import { SensorType } from "./SensorType";
-import { Station } from "./Station";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('sensors')
 export class Sensor {
     @PrimaryGeneratedColumn()
     id: number
 
-    @ManyToOne(() => Station, station => station.sensors)
-    @JoinColumn({name: "station_id"})
-    station: Station /// qual estacao pertence
+    @Column({type: 'float', nullable:false})
+    station_id: number
 
-    @ManyToOne(() =>SensorType, sensorType => sensorType.sensors)
-    @JoinColumn({name: "sensorType_id"})
-    sensorType: SensorType
+    @Column({type: 'float', nullable:false})
+    sensorType_id: number
 
     @Column({type:'text', nullable:false})
     description: string
@@ -37,8 +32,13 @@ export class Sensor {
     @Column({type:'timestamp', nullable:true})
     enddate: Date
 
-    @OneToMany(() => Gauged, gauged => gauged.sensor)
-    measurements: Gauged[]
+    /*@ManyToOne(() => Station, station => station.sensors)
+    @JoinColumn({name: "station_id"})
+    station: Station /// qual estacao pertence
+
+    @ManyToOne(() =>SensorType, sensorType => sensorType.sensors)
+    @JoinColumn({name: "sensorType_id"})
+    sensorType: SensorType*/
 
 }
 /// por favor não apagar
