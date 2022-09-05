@@ -51,4 +51,17 @@ export class SensorControllers{
             return res.status(500).json({message:"Internal Server Error"})
         }
     }
+
+    async delete(req: Request, res: Response){
+        //deleta uma estação
+        try{
+            const sensor = await sensorRepository.delete({
+                id: parseInt(req.params.id)
+            })
+            return res.send(sensor);
+        }catch(error){
+            console.log(error);
+            return res.status(500).json({message:"Internal Server Error"})
+        }
+    }
 }
