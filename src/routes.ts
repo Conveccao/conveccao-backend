@@ -1,5 +1,5 @@
 import{ Router } from 'express'
-import { SensorControllers } from './controllers/sensorControlers'
+import { SensorControllers } from './controllers/sensorControllers'
 import { SensorTypeControllers } from './controllers/sensorTypeControllers'
 import { StationControllers } from './controllers/stationControllers'
 
