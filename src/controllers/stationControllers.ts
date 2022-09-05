@@ -3,7 +3,6 @@ import { stationRepository } from "../repositories/stationRepository";
 
 export class StationControllers{
 
-    //TODO
     async get(req: Request, res: Response){
         //resgata todas as estações
         try{
@@ -17,7 +16,6 @@ export class StationControllers{
         }
     }
 
-    //TODO
     async getById(req: Request, res: Response){
         //Resgata estação por ID
         try{
@@ -47,6 +45,19 @@ export class StationControllers{
             return res.status(201).json(newStation)
 
         }catch(error) {
+            console.log(error);
+            return res.status(500).json({message:"Internal Server Error"})
+        }
+    }
+
+    async delete(req: Request, res: Response){
+        //deleta uma estação
+        try{
+            const station = await stationRepository.delete({
+                id: parseInt(req.params.id)
+            })
+            return res.send(station);
+        }catch(error){
             console.log(error);
             return res.status(500).json({message:"Internal Server Error"})
         }

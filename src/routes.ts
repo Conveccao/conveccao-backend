@@ -12,4 +12,6 @@ routes.post('/sensorType', new SensorTypeControllers().create)
 routes.post('/sensor', new SensorControllers().create)
 
 
+routes.delete('/delete-stations/:id', new StationControllers().delete)
+
 export default routes
