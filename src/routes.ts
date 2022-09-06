@@ -9,6 +9,7 @@ routes.get('/get-stations', new StationControllers().get)
 routes.get('/get-stations/:id', new StationControllers().getById)
 routes.post('/stations', new StationControllers().create)
 routes.delete('/delete-stations/:id', new StationControllers().delete)
+routes.put('/update-station/:id', new StationControllers().update)
 
 routes.post('/sensorType', new SensorTypeControllers().create)
 routes.get('/get-sensorsType', new SensorTypeControllers().get)

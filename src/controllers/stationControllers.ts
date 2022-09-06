@@ -62,4 +62,24 @@ export class StationControllers{
             return res.status(500).json({message:"Internal Server Error"})
         }
     }
+
+    async update(req: Request, res: Response){
+        //atualiza uma estação
+        let result = null;
+        try{
+            const station = await stationRepository.findOneBy({
+                id: parseInt(req.params.id)
+            })
+
+            if (station != null){
+                stationRepository.merge(station, req.body)
+                result = await stationRepository.save(station)
+            }
+            return res.send(result);
+            
+        } catch(error){
+            console.log(error);
+            return res.status(500).json({message:"Internal Server Error"})
+        }
+    }
 }
