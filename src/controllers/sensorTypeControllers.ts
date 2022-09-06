@@ -24,4 +24,17 @@ export class SensorTypeControllers{
             return res.status(500).json({message:"Internal Server Error"})
         }
     }
+
+     async get(req: Request, res: Response){
+        //resgata todas as estações
+        try{
+            const sensorsType = await sensorTypeRepository.find();
+            res.json(sensorsType);
+
+        }catch(error){
+            console.log(error);
+            return res.status(500).json({message:"Internal Server Error"})
+
+        }
+    }
 }

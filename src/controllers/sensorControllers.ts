@@ -64,4 +64,29 @@ export class SensorControllers{
             return res.status(500).json({message:"Internal Server Error"})
         }
     }
+
+    async put(req: Request, res: Response){
+        try{
+            const {id, station_id, sensorType_id, description, model, minrange, maxrange, accurace, startdate, enddate} =req.body
+
+            if(!id || !station_id || !sensorType_id || !description){
+            return res.status(404).json({message:"Campos código do Sensor, Estação, Tipo de Sensor e Descrição são obrigatórios"})
+        }
+            const sensor = await sensorRepository.findOneBy({
+                id: parseInt(req.params.id)
+            })
+
+            if (id == sensor?.id) {
+
+            }
+
+            
+         
+            return res.send(sensor);
+        }catch(error){
+            console.log(error);
+            return res.status(500).json({message:"Internal Server Error"})
+        }
+        
+    }
 }
