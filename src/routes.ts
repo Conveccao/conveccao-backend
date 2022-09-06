@@ -14,5 +14,6 @@ routes.get('/get-sensors', new SensorControllers().get)
 routes.get('/get-sensor/:id', new SensorControllers().getById)
 routes.delete('/delete-stations/:id', new StationControllers().delete)
 routes.put('/update-station/:id', new StationControllers().update)
+routes.delete('/delete-sensor/:id', new SensorControllers().delete)
 
 export default routes
