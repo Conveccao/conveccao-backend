@@ -27,7 +27,7 @@
     "http"
   ],
   "paths": {
-    "/estacoes": {
+    "/get-stations": {
       "get": {
         "tags": [
           "Estações"
@@ -49,12 +49,34 @@
         }
       }
     },
-    "/estacoes/cadastrar": {
+    "/get-stations/:id": {
+      "get": {
+        "tags": [
+          "Estações"
+        ],
+        "summary": "Busca todos as estações registradas na plataforma",
+        "description": "Ultiliza a requisição Get para mostrar todos os chamados existentes.",
+        "operationId": "getEstacoesiD",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "302": {
+            "description": "retorna as estações registradas",
+            "schema": {
+              "$ref": "#/definitions/Estacao"
+            }
+          }
+        }
+      }
+    },
+    "/stations": {
       "post": {
         "tags": [
           "Estações"
         ],
-        "summary": "Cadasra uma estação no banco de dados",
+        "summary": "Cadastra uma estação no banco de dados",
         "description": "registra uam estações e seus parametros no banco de dados",
         "operationId": "registerestacoes",
         "produces": [
@@ -81,7 +103,7 @@
         }
       }
     },
-    "/estacoes/alterar": {
+    "/update-station/:id": {
       "put": {
         "tags": [
           "Estações"
@@ -113,14 +135,14 @@
         }
       }
     },
-    "/estacao/disable": {
+    "/delete-stations/:id": {
       "delete": {
         "tags": [
           "Estações"
         ],
-        "summary": "Desativar uma estação",
-        "description": "Desativa uma estação, impedindo dados de serem recebidos",
-        "operationId": "disableEstacao",
+        "summary": "Deleta uma estação",
+        "description": "através da id, remove uma estação cadastrada no banco de dados da aplicação",
+        "operationId": "deleteEstacao",
         "produces": [
           "application/json"
         ],
@@ -128,7 +150,7 @@
           {
             "name": "ID da estação",
             "in": "body",
-            "description": "Id da Estação que será desativada",
+            "description": "Id da Estação que será deleta",
             "required": true,
             "schema": {
               "items": {
@@ -146,6 +168,130 @@
           },
           "404": {
             "description": "Chamado not found"
+          }
+        }
+      }
+    },
+    "/sensorType": {
+      "post": {
+        "tags": [
+          "Sensores"
+        ],
+        "summary": "Cadastra o tipo de um sensor",
+        "description": "Define qual o tipo de um sensor que foi cadastradado",
+        "operationId": "typeSensor",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SensorType"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "A estação foi cadastrada com sucesso"
+          }
+        }
+      }
+    },
+    "/get-sensorsType": {
+      "get": {
+        "tags": [
+          "Sensores"
+        ],
+        "summary": "Traz todos os sensores cadastrados na plataforma por tipo",
+        "description": "Retorna todos os sensores que possuem um mesmo tipo, cadastrado na plataforma",
+        "operationId": "GetSensorType",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SensorType"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Retorna todas as estações cadastradas com sucesso"
+          }
+        }
+      }
+    },
+    "/sensor": {
+      "post": {
+        "tags": [
+          "Sensores"
+        ],
+        "summary": "Cadastra um sensor no banco de dados",
+        "description": "envia os dados de um sensor para serem registrados em um banco de dados.",
+        "operationId": "RegisterSensor",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Sensor"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "O sensor foi cadastrado com sucesso"
+          }
+        }
+      }
+    },
+    "/get-sensors": {
+      "get": {
+        "tags": [
+          "Sensores"
+        ],
+        "summary": "Retorna de maneira geral todos os sensores cadastrados.",
+        "description": "Retorna, de maneira geral, todos os sensores que estiverem cadastrados na plataforma e todos as suas informações.",
+        "operationId": "GetSensors",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Sensor"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Retonará todos os sensores cadastrados"
           }
         }
       }
@@ -168,6 +314,18 @@
           "type": "integer",
           "format": "int64",
           "example": "6254056c201cec400af6S1e6"
+        }
+      }
+    },
+    "SensorType": {
+      "type": "object",
+      "properties": {
+        "tipo": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
         }
       }
     },
