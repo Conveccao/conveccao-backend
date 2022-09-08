@@ -67,7 +67,7 @@ export class SensorControllers{
 
     async put(req: Request, res: Response){
         try{
-            const {id, station_id, sensorType_id, description, model, minrange, maxrange, accurace, startdate, enddate} =req.body
+            const {id, station_id, sensorType_id, description, model, minrange, maxrange, accurace, startdate, enddate} = req.body
 
             if(!id || !station_id || !sensorType_id || !description){
             return res.status(404).json({message:"Campos código do Sensor, Estação, Tipo de Sensor e Descrição são obrigatórios"})
@@ -77,11 +77,10 @@ export class SensorControllers{
             })
 
             if (id == sensor?.id) {
+                sensorRepository.merge(station_id, sensorType_id, description, model, minrange, maxrange, accurace, startdate, enddate, req.body)
 
             }
 
-            
-         
             return res.send(sensor);
         }catch(error){
             console.log(error);
