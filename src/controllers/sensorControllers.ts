@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import { sensorRepository } from "../repositories/sensorRepository";
+import { sensorTypeRepository } from "../repositories/sensorTypeRepository";
+import { stationRepository } from "../repositories/stationRepository";
 
 export class SensorControllers{
 
@@ -33,19 +35,27 @@ export class SensorControllers{
 
     async create(req: Request, res: Response){
         //cria uma estação
-        const {station_id, sensorType_id, description, model, minrange, maxrange, accurace, startdate, enddate} =req.body
+        const {station_id, sensorType_id, description, model, minrange, maxrange, accurace, startdate, enddate} = req.body
 
         if(!station_id || !sensorType_id || !description){
             return res.status(404).json({message:"Campos Estação, Tipo de Sensor e Descrição são obrigatórios"})
         }
 
         try {
-            const newSensor = sensorRepository.create({station_id, sensorType_id, description, model, minrange, maxrange, accurace, startdate, enddate})
+            const station = await stationRepository.findOneById(station_id);
+            if (station != null ){
+                const sensorType = await sensorTypeRepository.findOneById(sensorType_id)
+                if(sensorType != null){
+                    const newSensor = sensorRepository.create({station_id, sensorType_id, description, model, minrange, maxrange, accurace, startdate, enddate})
 
-            await sensorRepository.save(newSensor)
+                    await sensorRepository.save(newSensor)
 
-            return res.status(201).json(newSensor)
-
+                    return res.status(201).json(newSensor)
+                }
+                return res.status(400).json({message: "Id de tipo de sensor inserido não existe."})
+            } 
+            return res.status(400).json({message: "Id de estação inserido não existe."})
+            
         }catch(error) {
             console.log(error);
             return res.status(500).json({message:"Internal Server Error"})
