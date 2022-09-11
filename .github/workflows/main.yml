@@ -1,17 +1,17 @@
-name: Deploy develop 
+name: Teste e Deploy main 
 
 on:
   push:
-    branch: [develop]
+    branch: [main, develop]
   pull_request:
-    branch: [develop]
+    branch: [main, develop]
 
 jobs:
-  testes:
+  build:
     runs-on: ubuntu-latest
-
+    
     steps:
-      - name: checkout testes
+      - name: checkout projeto
         uses: actions/checkout@v2
         run: git fetch --prune --unshallow
 
@@ -21,10 +21,10 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Instalação das depenencias
-        run: npm install
+        run: npm ci
 
       - name: Testes de código
-        run: 
+        run: npm run test
 
-      - name: Rodar testes
-        run: 
+      - name: Deploy
+        run: npm nun deploy
