@@ -25,5 +25,3 @@ jobs:
       - name: Testes de código
         run: npm run test
 
-      - name: Deploy
-        run: npm nun deploy
