@@ -1,0 +1,30 @@
+name: Deploy develop 
+
+on:
+  push:
+    branch: [develop]
+  pull_request:
+    branch: [develop]
+
+jobs:
+  testes:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout testes
+        uses: actions/checkout@v2
+        run: git fetch --prune --unshallow
+
+      - name: Config node
+        uses: actions/setup-node@v2.2.0 
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Instalação das depenencias
+        run: npm install
+
+      - name: Testes de código
+        run: 
+
+      - name: Rodar testes
+        run: 
