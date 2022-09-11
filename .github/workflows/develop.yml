@@ -7,7 +7,7 @@ on:
     branch: [develop]
 
 jobs:
-  build:
+  CI:
     runs-on: ubuntu-latest
     
     steps:
@@ -24,3 +24,15 @@ jobs:
 
       - name: Testes de código
         run: npm run test
+      
+  CD:
+    needs: [CI]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy Azure WebApp
+        uses: Azure/webapps-deploy@v2
+        with: 
+          app-name: Conveccao
+          publish-profile: ${{ secrets.WEBAPP }}
+          
