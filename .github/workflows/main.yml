@@ -17,10 +17,10 @@ jobs:
       - name: Config node
         uses: actions/setup-node@v2.2.0 
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 16
 
       - name: Instalação das depenencias
-        run: npm ci
+        run: npm install
 
       - name: Testes de código
         run: npm run test
