@@ -2,9 +2,9 @@ name: Teste e Deploy main
 
 on:
   push:
-    branch: [main]
+    branch: [develop]
   pull_request:
-    branch: [main]
+    branch: [develop]
 
 jobs:
   build:
