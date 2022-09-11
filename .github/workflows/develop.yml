@@ -33,6 +33,6 @@ jobs:
       - name: Deploy Azure WebApp
         uses: Azure/webapps-deploy@v2
         with: 
-          app-name: Conveccao
-          publish-profile: ${{ secrets.WEBAPP }}
+          app-name: ConveccaoDevelop
+          publish-profile: ${{ secrets.WEBAPP2 }}
           
