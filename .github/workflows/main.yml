@@ -28,6 +28,8 @@ jobs:
   CD:
     needs: [CI]
     runs-on: ubuntu-latest
+    environment:
+      name: produção
 
     steps:
       - name: Deploy Azure WebApp
