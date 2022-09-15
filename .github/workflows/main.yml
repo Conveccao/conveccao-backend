@@ -8,15 +8,14 @@ jobs:
   web-deploy:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
+    strategy: 
+      matrix:
+        node-version: [16.x]
+        
     steps:
     - name: 🚚 Get latest code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v2      
 
-    - name: Config node
-      uses: actions/setup-node@v2.2.0 
-       with:
-          node-version: 16
-    
     - name: 🔨 Build Project
       run: |
         npm install
