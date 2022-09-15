@@ -1,54 +1,31 @@
-name: Teste e Deploy develop
+on: 
+  push: 
+    branches: 
+      - develop
 
-on:
-  push:
-    branch: [develop]
-  pull_request:
-    branch: [develop]
-
+name: 🚀 Deploy website on push develop
 jobs:
-  CI:
+  web-deploy:
+    name: 🎉 Deploy
     runs-on: ubuntu-latest
-    
     steps:
-      - name: checkout projeto
-        uses: actions/checkout@v2
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v2
 
-      - name: Config node
-        uses: actions/setup-node@v2.2.0 
-        with:
+    - name: Config node
+      uses: actions/setup-node@v2.2.0 
+       with:
           node-version: 16
 
-      - name: Instalação das depenencias
-        run: npm install
-
-      - name: Testes de código
-        run: npm run test
-      
-  CD:
-    needs: [CI]
-    runs-on: ubuntu-latest
-    environment:
-      name: develop
-
-
-    steps:
-      - name: Deploy AWS
-        uses: actions/checkout@v2
-
-      - name: Config node
-        uses: actions/setup-node@v2.2.0 
-        with:
-          node-version: 16
-
-      - name: Instalação das depenencias
-        run: npm install
-
-      - name: Publish
-        run: |
-          npm install -g serverless
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID}}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
-          AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION}}
-          
+    - name: 🔨 Build Project
+      run: |
+        npm install
+        npm run build
+        
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@4.0.0
+      with:
+        server: ${{ secrets.ftp_host }}
+          username: ${{ secrets.ftp_user }}
+          password: ${{ secrets.ftp_password }}
+          server-dir: public_html/develop/
