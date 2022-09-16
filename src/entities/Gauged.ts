@@ -6,7 +6,7 @@ export class Gauged {
     id: number
 
     @Column({type: 'float', nullable:false})
-    sensor_id: number /// valor medido
+    station_id: number ///
 
     @Column({type: 'float', nullable:false})
     value: number /// valor medido
