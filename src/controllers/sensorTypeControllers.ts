@@ -6,14 +6,14 @@ export class SensorTypeControllers{
     //TODO
     async create(req: Request, res: Response){
         //cria uma estação
-        const {name, description, factor, primary_measure, secondary_measure}=req.body
+        const {name, description, unit1,  factor1, offset1, unit2, factor2, offset2, reference, min, max}=req.body
 
-        if(!name || !description || !factor || !primary_measure ){
-            return res.status(404).json({message:"Nome, descrição, factor e unidade primaria de medida é obrigatório"})
+        if(!name || !description || !unit1 || !factor1 || !offset1 || !unit2 || !factor2 || !offset2 || !reference || !min || !max){
+            return res.status(404).json({message:"Todos os dados são obrigatórios"})
         }
 
         try {
-            const newSensorType = sensorTypeRepository.create({name, description, factor, primary_measure, secondary_measure})
+            const newSensorType = sensorTypeRepository.create({name, description, unit1,  factor1, offset1, unit2, factor2, offset2, reference, min, max})
 
             await sensorTypeRepository.save(newSensorType)
 
