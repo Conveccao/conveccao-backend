@@ -22,7 +22,7 @@ app.get("/terms", (request, response) => {
 AppDataSource.initialize().then(() => {
     const app = express()
 
-    const allowedOrigins = ['http://localhost:3000'];
+    const allowedOrigins = ['http://localhost:3000', 'https://conveccao-web.onrender.com/'];
 
     const options: cors.CorsOptions = {
         origin: allowedOrigins
