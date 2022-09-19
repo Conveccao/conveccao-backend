@@ -8,7 +8,7 @@ export class SensorTypeControllers{
         //cria uma estação
         const {name, description, unit1,  factor1, offset1, unit2, factor2, offset2, reference, min, max}=req.body
 
-        if(!name || !description || !unit1 || !factor1 || !offset1 || !unit2 || !factor2 || !offset2 || !reference || !min || !max){
+        if(!name || !description || !unit1 || !factor1 || !offset1 ){
             return res.status(404).json({message:"Todos os dados são obrigatórios"})
         }
 
