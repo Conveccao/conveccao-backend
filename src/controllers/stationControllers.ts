@@ -31,14 +31,14 @@ export class StationControllers{
 
     async create(req: Request, res: Response){
         //cria uma estação
-        const {lat, lon, reference} =req.body
+        const {installation_date, name, lat, lon, reference} =req.body
 
-        if(!lat || !lon){
-            return res.status(404).json({message:"Latitude e/ou Longitude é obrigatório"})
+        if(!installation_date || !name || !lat || !lon || !reference){
+            return res.status(404).json({message:"Todos os dados são obrigatórios"})
         }
 
         try {
-            const newStation = stationRepository.create({lat, lon, reference })
+            const newStation = stationRepository.create({installation_date, name, lat, lon, reference})
 
             await stationRepository.save(newStation)
 

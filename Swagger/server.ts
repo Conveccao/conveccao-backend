@@ -1,5 +1,6 @@
 import express from "express"
 import swaggerUI from "swagger-ui-express"
+import cors from 'cors';
 import { AppDataSource } from "../src/data-source";
 
 import routes from "../src/routes";
@@ -21,6 +22,12 @@ app.get("/terms", (request, response) => {
 AppDataSource.initialize().then(() => {
     const app = express()
 
+    const options: cors.CorsOptions = {
+        methods: "GET, OPTIONS, PUT, POST, DELETE",
+        origin: "*"
+    };
+
+    app.use(cors(options))
     app.use(express.json())
 
     app.use(routes)
@@ -28,9 +35,8 @@ AppDataSource.initialize().then(() => {
     //app.get('/', (req, res) => {
     //    return res.json('ok')
     //})
-
     return app.listen(process.env.PORT)
 })
 
 app.use("/v1", routes);
-app.listen(3001, () => console.log("Server is running on port 3000"))
+app.listen(3001, () => console.log("Server is running on port 3001"))
