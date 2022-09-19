@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "description": "Documentação do repositório destinado aos arquivos desenvolvidos da plataforma de disseminação de dados Convecção, para a Aprendizagem por Projetos Integrados da FATEC Profº. Jessen Vidal de São José Dos Campos, no 4º semestre de Desenvolvimento de Software Multiplataforma.",
+    "description": "Documentação do repositório destinado aos arquivos desenvolvidos da plataforma de disseminação de dados Convecção, para a Aprendizagem por Projetos Integrados da FATEC Profº. Jessen Vidal de São José Dos Campos, no 4º semestre de Desenvolvimento de Software Multiplataforma. OBS: Nos encorajamos que ultilize o insominia para teste das rotas, removendo o () em cada rota.",
     "version": "1.0.0",
     "title": "Conveccção",
     "contact": {
@@ -27,13 +27,13 @@
     "http"
   ],
   "paths": {
-    "/get-stations": {
+    "/stations": {
       "get": {
         "tags": [
           "Estações"
         ],
         "summary": "Busca todos as estações registradas na plataforma",
-        "description": "Ultiliza a requisição Get para mostrar todos os chamados existentes.",
+        "description": "Ultiliza a requisição Get para mostrar todos os chamados existentes.Remova os parenteses() para utilizar.",
         "operationId": "getEstacoes",
         "produces": [
           "application/json"
@@ -43,19 +43,19 @@
           "302": {
             "description": "retorna as estações registradas",
             "schema": {
-              "$ref": "#/definitions/Estacao"
+              "$ref": "#/definitions/Station"
             }
           }
         }
       }
     },
-    "/get-stations/:id": {
+    "/stations/:id": {
       "get": {
         "tags": [
           "Estações"
         ],
         "summary": "Busca todos as estações registradas na plataforma",
-        "description": "Ultiliza a requisição Get para mostrar todos os chamados existentes.",
+        "description": "Ultiliza a requisição Get para mostrar todos os chamados existentes. Remova os parenteses() para utilizar.",
         "operationId": "getEstacoesiD",
         "produces": [
           "application/json"
@@ -65,19 +65,19 @@
           "302": {
             "description": "retorna as estações registradas",
             "schema": {
-              "$ref": "#/definitions/Estacao"
+              "$ref": "#/definitions/Station"
             }
           }
         }
       }
     },
-    "/stations": {
+    "/stations(create)": {
       "post": {
         "tags": [
           "Estações"
         ],
         "summary": "Cadastra uma estação no banco de dados",
-        "description": "registra uam estações e seus parametros no banco de dados",
+        "description": "registra uma estações e seus parametros no banco de dados. Remova os parenteses() para utilizar.",
         "operationId": "registerestacoes",
         "produces": [
           "application/json"
@@ -91,7 +91,7 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/Estacao"
+                "$ref": "#/definitions/Station"
               }
             }
           }
@@ -103,7 +103,7 @@
         }
       }
     },
-    "/update-station/:id": {
+    "/station/:id (update)": {
       "put": {
         "tags": [
           "Estações"
@@ -123,7 +123,7 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/Estacao"
+                "$ref": "#/definitions/Station"
               }
             }
           }
@@ -135,7 +135,7 @@
         }
       }
     },
-    "/delete-stations/:id": {
+    "/stations/:id (delete)": {
       "delete": {
         "tags": [
           "Estações"
@@ -172,7 +172,7 @@
         }
       }
     },
-    "/sensorType": {
+    "/sensorTypes": {
       "post": {
         "tags": [
           "Sensores"
@@ -203,7 +203,7 @@
         }
       }
     },
-    "/get-sensorsType": {
+    "/sensorTypes(get)": {
       "get": {
         "tags": [
           "Sensores"
@@ -234,7 +234,7 @@
         }
       }
     },
-    "/sensor": {
+    "/sensors": {
       "post": {
         "tags": [
           "Sensores"
@@ -265,7 +265,7 @@
         }
       }
     },
-    "/get-sensors": {
+    "/sensors(get)": {
       "get": {
         "tags": [
           "Sensores"
@@ -295,15 +295,120 @@
           }
         }
       }
+    },
+    "/sensors/:id": {
+      "get": {
+        "tags": [
+          "Sensores"
+        ],
+        "summary": "Busca um determinado um sensor especifico registrado",
+        "description": "Ultiliza a requisição Get para retornar um sensor por ID.",
+        "operationId": "getSensoresiD",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "302": {
+            "description": "retorna as sensores registradas",
+            "schema": {
+              "$ref": "#/definitions/Sensor"
+            }
+          }
+        }
+      }
+    },
+    "/sensors/:id (delete)": {
+      "delete": {
+        "tags": [
+          "Sensores"
+        ],
+        "summary": "Deleta um sensor",
+        "description": "através da id, remove um sensor cadastrado no banco de dados da aplicação",
+        "operationId": "deleteSensor",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "ID do Sensor",
+            "in": "body",
+            "description": "Id do Sensor que será deleta",
+            "required": true,
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/SensorID"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "400": {
+            "description": "ID de Sensor inválido"
+          },
+          "404": {
+            "description": "Chamado not found"
+          }
+        }
+      }
+    },
+    "/sensor/:id (update)": {
+      "put": {
+        "tags": [
+          "Sensores"
+        ],
+        "summary": "Atualiza os dados de um sensor",
+        "description": "Atualiza os dados de um Sensor já cadastrado, alterando os dados solicitados",
+        "operationId": "AtualizarSensores",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "dados que serão atualizados",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SensorID"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "retorna o Sensor com os dados alterados"
+          }
+        }
+      }
     }
   },
   "definitions": {
-    "Estacao": {
+    "Station": {
       "type": "object",
       "properties": {
         "id": {
-          "type": "integer",
-          "format": "int64"
+          "type": "number"
+        },
+        "instalation_date": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "lat": {
+          "type": "number"
+        },
+        "lon": {
+          "type": "number"
+        },
+        "reference": {
+          "type": "string"
         }
       }
     },
@@ -311,9 +416,7 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "integer",
-          "format": "int64",
-          "example": "6254056c201cec400af6S1e6"
+          "type": "number"
         }
       }
     },
@@ -324,8 +427,40 @@
           "type": "string"
         },
         "id": {
-          "type": "integer",
-          "format": "int64"
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "unit1": {
+          "type": "string"
+        },
+        "factor1": {
+          "type": "number"
+        },
+        "offset1": {
+          "type": "number"
+        },
+        "unit2": {
+          "type": "string"
+        },
+        "factor2": {
+          "type": "number"
+        },
+        "offset2": {
+          "type": "number"
+        },
+        "reference": {
+          "type": "string"
+        },
+        "min": {
+          "type": "string"
+        },
+        "max": {
+          "type": "string"
         }
       }
     },
@@ -333,23 +468,42 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "integer",
-          "format": "int64"
+          "type": "number"
+        },
+        "station_id": {
+          "type": "number"
+        },
+        "description": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        },
+        "minrange": {
+          "type": "number"
+        },
+        "maxrange": {
+          "type": "number"
+        },
+        "accurace": {
+          "type": "number"
+        },
+        "startdate": {
+          "type": "string",
+          "format": "date"
+        },
+        "enddate": {
+          "type": "string",
+          "format": "date"
         }
       }
     },
     "SensorID": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        }
-      }
+      "type": "number"
     }
   },
   "externalDocs": {
     "description": "Conheça a Convecção",
-    "url": "https://github.com/"
+    "url": "https://github.com/Conveccao"
   }
 }
