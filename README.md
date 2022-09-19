@@ -27,9 +27,12 @@ $ npm run dev
 
 
 ```
-O servidor iniciará localmente na porta 3000. Use o Insomnia ou o Postman para simular requisições e respostas das rotas (pelo link [https://localhost:3000]((https://localhost:3000)) ou utilize o projeto fron-end do "Convecão" para executar as funcionalidades da aplicação (acesse o repositório por [este link](https://github.com/Conveccao/conveccao-frontend)).
+O servidor iniciará localmente na porta 8080. Use o Insomnia ou o Postman para simular requisições e respostas das rotas (pelo link [https://localhost:3000]((https://localhost:3000)) ou utilize o projeto fron-end do "Convecão" para executar as funcionalidades da aplicação (acesse o repositório por [este link](https://github.com/Conveccao/conveccao-frontend)).
 
 ## :railway_track: Rotas disponíveis
+ 
+
+
 <div>
   
 |                                                                    Tipo | Rota                                 | Ação                            |
@@ -48,6 +51,10 @@ O servidor iniciará localmente na porta 3000. Use o Insomnia ou o Postman para 
 | [![](https://img.shields.io/badge/DELETE-CD853F?style=for-the-badge)]() | `/stations/:id`| Exclusão de uma estação específica
 | [![](https://img.shields.io/badge/DELETE-CD853F?style=for-the-badge)]() | `/sensors/:id`| Exclusão de uma sensor específica
 
+  
+ 
+Para acessar uma documentação mais avançada, acesse a porta 3001
+  
 </div>
 
 ### Explicação da estrutura das pastas
