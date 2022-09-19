@@ -22,12 +22,6 @@ $ cd conveccao-backend
 # Instale as dependências
 $ npm install
 
-# Gerar o banco de dados
-$ npm run migration:generation
-
-# Iniciar o banco de dados
-$ npm run migration:run
-
 # Iniciar o projeto
 $ npm run dev
 
