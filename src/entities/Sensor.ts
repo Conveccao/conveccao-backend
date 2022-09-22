@@ -11,27 +11,6 @@ export class Sensor {
     @Column({type: 'float', nullable:false})
     sensorType_id: number
 
-    @Column({type:'text', nullable:false})
-    description: string
-    
-    @Column({type:'text', nullable:true}) /// nullable true => pode ter valor vazio
-    model: string
-
-    @Column({type:'float', nullable:true})
-    minrange: number   /// medição minima
-
-    @Column({type:'float', nullable:true})
-    maxrange: number   /// medição maxima
-
-    @Column({type:'float', nullable:true})
-    accurace: number
-
-    @Column({type:'timestamp', nullable:true})
-    startdate: Date
-
-    @Column({type:'timestamp', nullable:true})
-    enddate: Date
-
     /*@ManyToOne(() => Station, station => station.sensors)
     @JoinColumn({name: "station_id"})
     station: Station /// qual estacao pertence
