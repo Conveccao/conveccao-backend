@@ -46,7 +46,7 @@ export class SensorControllers{
             if (station != null ){
                 const sensorType = await sensorTypeRepository.findOneById(sensorType_id)
                 if(sensorType != null){
-                    const newSensor = sensorRepository.create({station_id, sensorType_id, description, model, minrange, maxrange, accurace, startdate, enddate})
+                    const newSensor = sensorRepository.create({station_id, sensorType_id})
 
                     await sensorRepository.save(newSensor)
 
