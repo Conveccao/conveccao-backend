@@ -23,6 +23,7 @@ routes.delete('/sensors/:id', new SensorControllers().delete)
 routes.put('/sensors/:id', new SensorControllers().put)
 
 routes.post('/user', new UserControllers().create)
+routes.get('/users', new UserControllers().get)
 routes.post('/login', new UserControllers().login)
 routes.delete('/user/:id', new UserControllers().delete)
 routes.get('/profile', authMiddleware, new UserControllers().getProfile) //// exemplo de rota que precisa de autenticação para acessar

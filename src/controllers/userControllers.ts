@@ -1,75 +1,102 @@
 import { Request, Response } from "express";
-import { BadRequestError} from "../helpers/api-erros";
+import { BadRequestError } from "../helpers/api-erros";
 import { userRepository } from "../repositories/userRepository";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import UserDtoMapper from "../data/mappers/userDtoMapper";
+import UserReadDto from "../data/dtos/userDtos/userReadDto";
 
-export class UserControllers{
+export class UserControllers {
     async create(req: Request, res: Response) {
-        const {name, email, password} = req.body
+        const { name, email, password } = req.body
 
-        const userExists = await userRepository.findOneBy({email})
+        const userExists = await userRepository.findOneBy({ email })
 
-        if (userExists){
+        if (userExists) {
             throw new BadRequestError('Email já existe')
         }
 
         const hashPassword = await bcrypt.hash(password, 8)
 
         const newUser = userRepository.create({
-            name, 
-            email, 
+            name,
+            email,
             password: hashPassword
         })
 
         await userRepository.save(newUser)
 
-        const {password: _, ...user} = newUser 
+        const { password: _, ...user } = newUser
 
         return res.status(201).json(user)
 
     }
 
-       async delete(req: Request, res: Response){
-        //deleta uma estação
-        try{
-            const user = await userRepository.delete({
-                id: parseInt(req.params.id)
+    async get(req: Request, res: Response){
+        try {
+            const userDtoMapper = new UserDtoMapper()
+            const users = await userRepository.find()
+            let usersReadDto : UserReadDto[] = []
+            users.forEach(user => {
+                let userReadDto = userDtoMapper.userToUserReadDto(user)
+                usersReadDto.push(userReadDto)
             })
-            return res.send(user);
-        }catch(error){
-            console.log(error);
+            res.json(usersReadDto)
+        } catch (error) {
+            console.log(error)
             return res.status(500).json({message:"Internal Server Error"})
         }
     }
 
-    async login (req: Request, res: Response){
-        const {email, password} = req.body
+    //TODO
+    async put(req: Request, res: Response){
+        try {
+            
+        } catch (error) {
+            
+        }
+    }
 
-        const user = await userRepository.findOneBy({email})
+    async delete(req: Request, res: Response) {
+        //deleta uma estação
+        try {
+            const user = await userRepository.delete({
+                id: parseInt(req.params.id)
+            })
+            return res.send(user);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({ message: "Internal Server Error" })
+        }
+    }
 
-        if (!user){
+    async login(req: Request, res: Response) {
+        const { email, password } = req.body
+
+        const user = await userRepository.findOneBy({ email })
+
+        if (!user) {
             throw new BadRequestError('Email ou senha invalido')
         }
 
         const verifiedPass = await bcrypt.compare(password, user.password)
 
-        if(!verifiedPass) {
+        if (!verifiedPass) {
             throw new BadRequestError('Email ou senha invalido')
         }
 
-        const token = jwt.sign({id:user.id}, process.env.JWT_PASS ?? '', {expiresIn: '2h' } ) // token expira em 2 horas 
+        const token = jwt.sign({ id: user.id }, process.env.JWT_PASS ?? '', { expiresIn: '2h' }) // token expira em 2 horas 
 
-        const {password: _, ...userLogin} = user
-        
+        const { password: _, ...userLogin } = user
+
         return res.json({
             user: userLogin,
             token: token
         })
     }
 
-    async getProfile (req: Request, res: Response){
+    async getProfile(req: Request, res: Response) {
         return res.json(req.user)
     }
-    
+
 }
