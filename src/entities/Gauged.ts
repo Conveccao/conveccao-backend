@@ -6,7 +6,7 @@ export class Gauged {
     id: number
 
     @Column({type: 'float', nullable:false})
-    sensor_id: number ///
+    parameter_id: number ///
 
     @Column({type: 'float', nullable:false})
     value: number /// valor medido
@@ -14,8 +14,8 @@ export class Gauged {
     @Column({type: 'float', nullable:false})
     date_time: number  //// unixtime???
 
-    /*@ManyToOne(() => Sensor, sensor => sensor.measurements)
-    @JoinColumn({name: "id_sensor"})
-    sensor: Sensor; //// sensor a qual essa medição pertense*/
+    /*@ManyToOne(() => Parameter, parameter => parameter.measurements)
+    @JoinColumn({name: "id_parameter"})
+    parameter: Parameter; //// parâmetro ao qual essa medição pertense*/
     
 }

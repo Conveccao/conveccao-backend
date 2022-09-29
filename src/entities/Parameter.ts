@@ -1,7 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity('sensors')
-export class Sensor {
+@Entity('parameters')
+export class Parameter {
     @PrimaryGeneratedColumn()
     id: number
 
@@ -9,15 +9,15 @@ export class Sensor {
     station_id: number
 
     @Column({type: 'float', nullable:false})
-    sensorType_id: number
+    parameterType_id: number
 
-    /*@ManyToOne(() => Station, station => station.sensors)
+    /*@ManyToOne(() => Station, station => station.parameters)
     @JoinColumn({name: "station_id"})
     station: Station /// qual estacao pertence
 
-    @ManyToOne(() =>SensorType, sensorType => sensorType.sensors)
-    @JoinColumn({name: "sensorType_id"})
-    sensorType: SensorType*/
+    @ManyToOne(() =>parameterType, parameterType => parameterType.parameters)
+    @JoinColumn({name: "parameterType_id"})
+    parameterType: ParameterType*/
 
 }
 /// por favor não apagar

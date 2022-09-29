@@ -1,6 +1,6 @@
 import{ Router } from 'express'
-import { SensorControllers } from './controllers/sensorControllers'
-import { SensorTypeControllers } from './controllers/sensorTypeControllers'
+import { ParameterControllers } from './controllers/parameterControllers'
+import { ParameterTypeControllers } from './controllers/parameterTypeControllers'
 import { StationControllers } from './controllers/stationControllers'
 import { UserControllers } from './controllers/userControllers'
 import { authMiddleware } from './middleware/authMiddleware'
@@ -13,14 +13,14 @@ routes.post('/stations', new StationControllers().create)
 routes.delete('/stations/:id', new StationControllers().delete)
 routes.put('/stations/:id', new StationControllers().update)
 
-routes.post('/sensorTypes', new SensorTypeControllers().create)
-routes.get('/sensorTypes', new SensorTypeControllers().get)
+routes.post('/parameterTypes', new ParameterTypeControllers().create)
+routes.get('/parameterTypes', new ParameterTypeControllers().get)
 
-routes.post('/sensors', new SensorControllers().create)
-routes.get('/sensors', new SensorControllers().get)
-routes.get('/sensors/:id', new SensorControllers().getById)
-routes.delete('/sensors/:id', new SensorControllers().delete)
-routes.put('/sensors/:id', new SensorControllers().put)
+routes.post('/parameters', new ParameterControllers().create)
+routes.get('/parameters', new ParameterControllers().get)
+routes.get('/parameters/:id', new ParameterControllers().getById)
+routes.delete('/parameters/:id', new ParameterControllers().delete)
+routes.put('/parameters/:id', new ParameterControllers().put)
 
 routes.post('/user', new UserControllers().create)
 routes.get('/users', new UserControllers().get)
