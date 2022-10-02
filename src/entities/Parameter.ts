@@ -1,39 +1,26 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import {Station} from "../entities/Station"
+import { ParameterType } from "./ParameterType";
 
 @Entity('parameters')
 export class Parameter {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column({type: 'float', nullable:false})
-    station_id: number
+    @ManyToOne((type) => Station, {onDelete: 'CASCADE'})
+    @JoinColumn({
+        name:"id",
+        referencedColumnName: "id",
+        foreignKeyConstraintName:"fk_station_id"
+    })
+    station: Station
 
-    @Column({type: 'float', nullable:false})
-    parameterType_id: number
-
-    /*@ManyToOne(() => Station, station => station.parameters)
-    @JoinColumn({name: "station_id"})
-    station: Station /// qual estacao pertence
-
-    @ManyToOne(() =>parameterType, parameterType => parameterType.parameters)
-    @JoinColumn({name: "parameterType_id"})
-    parameterType: ParameterType*/
+    @ManyToOne((type) => ParameterType, {onDelete: "CASCADE"})
+    @JoinColumn({
+        name: "id",
+        referencedColumnName: "id",
+        foreignKeyConstraintName: "fk_parameterType_id"
+    })
+    parameterType: ParameterType
 
 }
-/// por favor não apagar
-/// exemplo de relação muitos para muitos caso precise 
-
-/* @ManyToMany(() => Room, room => room.subjects)
-	@JoinTable({
-		name: 'room_subject',
-		joinColumn: {
-			name: 'room_id',
-			referencedColumnName: 'id',
-		},
-		inverseJoinColumn: {
-			name: 'subject_id',
-			referencedColumnName: 'id',
-		},
-	})
-	rooms: Room[]
-*/
