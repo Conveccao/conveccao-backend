@@ -8,7 +8,7 @@ import UserReadDto from "../data/dtos/userDtos/userReadDto";
 
 export class UserControllers {
     async create(req: Request, res: Response) {
-        const { name, email, password } = req.body
+        const { name, email, photo } = req.body
 
         const userExists = await userRepository.findOneBy({ email })
 
@@ -16,19 +16,19 @@ export class UserControllers {
             throw new BadRequestError('Email já existe')
         }
 
-        const hashPassword = await bcrypt.hash(password, 8)
+        // const hashPassword = await bcrypt.hash(password, 8)
 
         const newUser = userRepository.create({
             name,
             email,
-            password: hashPassword
+            photo
         })
 
         await userRepository.save(newUser)
 
-        const { password: _, ...user } = newUser
+        // const { password: _, ...user } = newUser
 
-        return res.status(201).json(user)
+        return res.status(201).json(newUser)
 
     }
 
@@ -79,18 +79,18 @@ export class UserControllers {
             throw new BadRequestError('Email ou senha invalido')
         }
 
-        const verifiedPass = await bcrypt.compare(password, user.password)
+        // const verifiedPass = await bcrypt.compare(password, user.password)
 
-        if (!verifiedPass) {
-            throw new BadRequestError('Email ou senha invalido')
-        }
+        // if (!verifiedPass) {
+        //     throw new BadRequestError('Email ou senha invalido')
+        // }
 
         const token = jwt.sign({ id: user.id }, process.env.JWT_PASS ?? '', { expiresIn: '2h' }) // token expira em 2 horas 
 
-        const { password: _, ...userLogin } = user
+        // const { password: _, ...userLogin } = user
 
         return res.json({
-            user: userLogin,
+            //user: userLogin,
             token: token
         })
     }

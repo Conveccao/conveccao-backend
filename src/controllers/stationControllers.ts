@@ -6,7 +6,11 @@ export class StationControllers{
     async get(req: Request, res: Response){
         //resgata todas as estações
         try{
-            const stations = await stationRepository.find();
+            const stations = await stationRepository.find({
+                relations:{
+                    parameters: true
+                }
+            });
             res.json(stations);
 
         }catch(error){
@@ -20,7 +24,7 @@ export class StationControllers{
         //Resgata estação por ID
         try{
             const station = await stationRepository.findOneBy({
-                id: parseInt(req.params.id)
+                 id: parseInt(req.params.id)
             })
             return res.send(station);
         } catch(error) {

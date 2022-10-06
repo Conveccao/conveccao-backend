@@ -24,9 +24,9 @@ export const authMiddleware = async (req: Request, res: Response, next: NextFunc
             throw new UnauthorizedError('Não autorizado')
         }
 
-        const {password: _, ...userLogged} = user
+        //const {password: _, ...userLogged} = user
 
-        req.user = userLogged
+        req.user = user
 
         next()
 }

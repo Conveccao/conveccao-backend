@@ -4,6 +4,7 @@ import { ParameterTypeControllers } from './controllers/parameterTypeControllers
 import { StationControllers } from './controllers/stationControllers'
 import { UserControllers } from './controllers/userControllers'
 import { authMiddleware } from './middleware/authMiddleware'
+import valueController from './controllers/valueController'
 
 const routes = Router()
 
@@ -27,5 +28,8 @@ routes.get('/users', new UserControllers().get)
 routes.post('/login', new UserControllers().login)
 routes.delete('/user/:id', new UserControllers().delete)
 routes.get('/profile', authMiddleware, new UserControllers().getProfile) //// exemplo de rota que precisa de autenticação para acessar
+
+routes.post('/createValue', valueController.createValue)
+routes.get('/readAllValues', valueController.readAll)
 
 export default routes

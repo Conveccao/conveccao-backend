@@ -1,4 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { jsonIgnore } from "json-ignore";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Parameter } from "./Parameter";
 
 @Entity('parametersType')
 export class ParameterType {
@@ -37,4 +39,7 @@ export class ParameterType {
 
     @Column({type: 'float', nullable:true})
     max: string
+
+    @OneToMany(() => Parameter, (parameter) => parameter.parameterType)
+    parameters: Parameter[]
 }

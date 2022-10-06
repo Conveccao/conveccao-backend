@@ -1,5 +1,6 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import {Station} from "../entities/Station"
+import { Gauged } from "./Gauged";
 import { ParameterType } from "./ParameterType";
 
 @Entity('parameters')
@@ -7,20 +8,16 @@ export class Parameter {
     @PrimaryGeneratedColumn()
     id: number
 
-    @ManyToOne((type) => Station, {onDelete: 'CASCADE'})
-    @JoinColumn({
-        name:"id",
-        referencedColumnName: "id",
-        foreignKeyConstraintName:"fk_station_id"
+    @ManyToOne(() => Station, (station) => station.parameters, {
+        onDelete: "CASCADE"
     })
     station: Station
 
-    @ManyToOne((type) => ParameterType, {onDelete: "CASCADE"})
-    @JoinColumn({
-        name: "id",
-        referencedColumnName: "id",
-        foreignKeyConstraintName: "fk_parameterType_id"
+    @ManyToOne(() => ParameterType, (parameterType) => parameterType.parameters, {
+        onDelete: "CASCADE"
     })
     parameterType: ParameterType
 
+    @OneToMany(() => Gauged, (measurement) => measurement.parameter)
+    measurements: Gauged[]
 }

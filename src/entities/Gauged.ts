@@ -6,11 +6,8 @@ export class Gauged {
     @PrimaryGeneratedColumn()
     id: number
 
-    @ManyToOne((type) => Parameter, {onDelete: "CASCADE"})
-    @JoinColumn({
-        name: "id",
-        referencedColumnName: "id",
-        foreignKeyConstraintName: "fk_parameter_id"
+    @ManyToOne(() => Parameter, (parameter) => parameter.measurements, {
+        onDelete: "CASCADE"
     })
     parameter: Parameter///
 

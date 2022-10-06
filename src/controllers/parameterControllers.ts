@@ -9,7 +9,12 @@ export class ParameterControllers{
     async get(req: Request, res: Response){
         //resgata todas as estações
         try{
-            const parameters = await parameterRepository.find();
+            const parameters = await parameterRepository.find({
+                relations:{
+                    station: true,
+                    parameterType: true
+                }
+            });
             res.json(parameters);
 
         }catch(error){
@@ -34,10 +39,10 @@ export class ParameterControllers{
 
     async create(req: Request, res: Response){
         //cria uma estação
-        const {station_id, parameterType_id, description, model, minrange, maxrange, accurace, startdate, enddate} = req.body
+        const {station_id, parameterType_id} = req.body
 
-        if(!station_id || !parameterType_id || !description){
-            return res.status(404).json({message:"Campos Estação, Tipo de parâmetro e Descrição são obrigatórios"})
+        if(!station_id || !parameterType_id ){
+            return res.status(404).json({message:"Campos Estação e Tipo de parâmetro são obrigatórios"})
         }
 
         try {
@@ -45,8 +50,7 @@ export class ParameterControllers{
             if (station != null ){
                 const parameterType = await parameterTypeRepository.findOneById(parameterType_id)
                 if(parameterType != null){
-                    const newParameter = parameterRepository.create({station_id, parameterType_id})
-
+                    const newParameter = parameterRepository.create({station, parameterType})
                     await parameterRepository.save(newParameter)
 
                     return res.status(201).json(newParameter)
