@@ -16,8 +16,6 @@ export class UserControllers {
             throw new BadRequestError('Email já existe')
         }
 
-        // const hashPassword = await bcrypt.hash(password, 8)
-
         const newUser = userRepository.create({
             name,
             email,
@@ -26,10 +24,19 @@ export class UserControllers {
 
         await userRepository.save(newUser)
 
-        // const { password: _, ...user } = newUser
-
         return res.status(201).json(newUser)
 
+    }
+
+    async getByEmail(req: Request, res: Response){
+        try {
+            const email = req.body
+            const userExists = await userRepository.findOneBy(email)
+            if (userExists) return res.status(200).json(userExists)
+            return res.status(404)
+        } catch (error) {
+            return res.status(500).json({message: "Internal Server Error"})
+        }
     }
 
     async get(req: Request, res: Response){
