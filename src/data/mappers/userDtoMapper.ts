@@ -8,6 +8,7 @@ export default class UserDtoMapper{
         userReadDto.id = user.id
         userReadDto.name = user.name
         userReadDto.email = user.email
+        userReadDto.role = user.role
         return userReadDto
     }
 }

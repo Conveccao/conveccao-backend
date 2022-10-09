@@ -5,6 +5,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import UserDtoMapper from "../data/mappers/userDtoMapper";
 import UserReadDto from "../data/dtos/userDtos/userReadDto";
+import { ERole } from "../entities/ERole";
 
 export class UserControllers {
     async create(req: Request, res: Response) {
@@ -22,6 +23,8 @@ export class UserControllers {
             photo
         })
 
+        newUser.role = ERole.USER
+
         await userRepository.save(newUser)
 
         return res.status(201).json(newUser)
@@ -38,24 +41,31 @@ export class UserControllers {
         try {
             const userDtoMapper = new UserDtoMapper()
             const users = await userRepository.find()
-            let usersReadDto : UserReadDto[] = []
-            users.forEach(user => {
-                let userReadDto = userDtoMapper.userToUserReadDto(user)
-                usersReadDto.push(userReadDto)
-            })
-            res.json(usersReadDto)
+            res.json(users)
         } catch (error) {
             console.log(error)
             return res.status(500).json({message:"Internal Server Error"})
         }
     }
 
-    //TODO
     async put(req: Request, res: Response){
         try {
-            
+            let { role } = req.body
+            const user = await userRepository.findOneBy({
+                id: parseInt(req.params.id)
+            })
+            if (user != null) {
+                if(role == "admin"){
+                    user.role = ERole.ADMIN
+                } else if (role == "user") {
+                    user.role = ERole.USER
+                }
+                await userRepository.save(user)
+            }
+            return res.status(200).json(user)
         } catch (error) {
-            
+            console.log(error)
+            return res.status(500).json({message: "Internal Server Error"})
         }
     }
 
