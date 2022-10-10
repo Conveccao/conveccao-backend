@@ -1,4 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { ERole } from "./ERole";
 
 @Entity('users')
 export class User{
@@ -13,4 +14,7 @@ export class User{
 
     @Column({type: 'text'})
     photo: string
+
+    @Column({type: 'text', nullable: false})
+    role: ERole
 }
