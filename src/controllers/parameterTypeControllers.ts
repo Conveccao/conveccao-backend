@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { sensorTypeRepository } from "../repositories/sensorTypeRepository";
+import { parameterTypeRepository } from "../repositories/parameterTypeRepository";
 
-export class SensorTypeControllers{
+export class ParameterTypeControllers{
 
     //TODO
     async create(req: Request, res: Response){
@@ -13,11 +13,11 @@ export class SensorTypeControllers{
         }
 
         try {
-            const newSensorType = sensorTypeRepository.create({name, description, unit1,  factor1, offset1, unit2, factor2, offset2, reference, min, max})
+            const newParameterType = parameterTypeRepository.create({name, description, unit1,  factor1, offset1, unit2, factor2, offset2, reference, min, max})
 
-            await sensorTypeRepository.save(newSensorType)
+            await parameterTypeRepository.save(newParameterType)
 
-            return res.status(201).json(newSensorType)
+            return res.status(201).json(newParameterType)
 
         }catch(error) {
             console.log(error);
@@ -28,8 +28,8 @@ export class SensorTypeControllers{
      async get(req: Request, res: Response){
         //resgata todas as estações
         try{
-            const sensorsType = await sensorTypeRepository.find();
-            res.json(sensorsType);
+            const parametersType = await parameterTypeRepository.find();
+            res.json(parametersType);
 
         }catch(error){
             console.log(error);

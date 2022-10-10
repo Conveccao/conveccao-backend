@@ -1,21 +1,20 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Parameter } from "./Parameter";
 
 @Entity('measurements')
 export class Gauged {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column({type: 'float', nullable:false})
-    station_id: number ///
+    @ManyToOne(() => Parameter, (parameter) => parameter.measurements, {
+        onDelete: "CASCADE"
+    })
+    parameter: Parameter///
 
     @Column({type: 'float', nullable:false})
     value: number /// valor medido
     
     @Column({type: 'float', nullable:false})
     date_time: number  //// unixtime???
-
-    /*@ManyToOne(() => Sensor, sensor => sensor.measurements)
-    @JoinColumn({name: "id_sensor"})
-    sensor: Sensor; //// sensor a qual essa medição pertense*/
     
 }

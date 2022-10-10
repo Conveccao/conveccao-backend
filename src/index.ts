@@ -1,6 +1,8 @@
 import express from "express";
 import { AppDataSource } from "./data-source";
 import routes from "./routes";
+import 'express-async-errors';
+import {errorMiddleware} from "./middleware/error";
 
 AppDataSource.initialize().then(() => {
     const app = express()
@@ -12,6 +14,8 @@ AppDataSource.initialize().then(() => {
     //app.get('/', (req, res) => {
     //    return res.json('ok')
     //})
+
+    app.use(errorMiddleware)
 
     return app.listen(process.env.PORT)
 })
