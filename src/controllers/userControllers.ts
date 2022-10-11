@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { BadRequestError } from "../helpers/api-erros";
 import { userRepository } from "../repositories/userRepository";
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 import UserDtoMapper from "../data/mappers/userDtoMapper";
 import UserReadDto from "../data/dtos/userDtos/userReadDto";
 import { ERole } from "../entities/ERole";
@@ -57,6 +57,8 @@ export class UserControllers {
             if (user != null) {
                 if(role == "admin"){
                     user.role = ERole.ADMIN
+                } else if (role == "moderator") {
+                    user.role = ERole.MODERATOR
                 } else if (role == "user") {
                     user.role = ERole.USER
                 }
@@ -70,7 +72,6 @@ export class UserControllers {
     }
 
     async delete(req: Request, res: Response) {
-        //deleta uma estação
         try {
             const user = await userRepository.delete({
                 id: parseInt(req.params.id)
@@ -83,7 +84,7 @@ export class UserControllers {
     }
 
     async login(req: Request, res: Response) {
-        const { email, password } = req.body
+        const { email } = req.body
 
         const user = await userRepository.findOneBy({ email })
 
@@ -91,18 +92,12 @@ export class UserControllers {
             throw new BadRequestError('Email ou senha invalido')
         }
 
-        // const verifiedPass = await bcrypt.compare(password, user.password)
+        const token = jwt.sign({user: user}, process.env.JWT_PASS ?? '', { expiresIn: '2h' }) 
+        const userVerification = jwt.verify(token, process.env.JWT_PASS ?? '') as JwtPayload
 
-        // if (!verifiedPass) {
-        //     throw new BadRequestError('Email ou senha invalido')
-        // }
-
-        const token = jwt.sign({ id: user.id }, process.env.JWT_PASS ?? '', { expiresIn: '2h' }) // token expira em 2 horas 
-
-        // const { password: _, ...userLogin } = user
+        console.log(userVerification.user.id)
 
         return res.json({
-            //user: userLogin,
             token: token
         })
     }
