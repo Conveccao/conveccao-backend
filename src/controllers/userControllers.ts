@@ -98,7 +98,8 @@ export class UserControllers {
         console.log(userVerification.user.id)
 
         return res.json({
-            token: token
+            token: token,
+            user: user
         })
     }
 
