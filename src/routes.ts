@@ -22,12 +22,14 @@ routes.get('/parameters', new ParameterControllers().get)
 routes.get('/parameters/:id', new ParameterControllers().getById)
 routes.delete('/parameters/:id', new ParameterControllers().delete)
 routes.put('/parameters/:id', new ParameterControllers().put)
+routes.put('/parameters/activate/:id', new ParameterControllers().activate)
 
 routes.post('/user', new UserControllers().create)
 routes.get('/users', new UserControllers().get)
-routes.get('/user-exists', new UserControllers().getByEmail)
+routes.post('/user-exists', new UserControllers().getByEmail)
 routes.post('/login', new UserControllers().login)
 routes.delete('/user/:id', new UserControllers().delete)
+routes.put('/update-user/:id', new UserControllers().put)
 routes.get('/profile', authMiddleware, new UserControllers().getProfile) //// exemplo de rota que precisa de autenticação para acessar
 
 routes.post('/createValue', valueController.createValue)

@@ -50,7 +50,7 @@ export class ParameterControllers{
             if (station != null ){
                 const parameterType = await parameterTypeRepository.findOneById(parameterType_id)
                 if(parameterType != null){
-                    const newParameter = parameterRepository.create({station, parameterType})
+                    const newParameter = parameterRepository.create({station, parameterType, active: false})
                     await parameterRepository.save(newParameter)
 
                     return res.status(201).json(newParameter)
@@ -100,5 +100,21 @@ export class ParameterControllers{
             return res.status(500).json({message:"Internal Server Error"})
         }
         
+    }
+
+    async activate(req: Request, res: Response){
+        try {
+            const parameter = await parameterRepository.findOneBy({
+                id: parseInt(req.params.id)
+            })
+            if(parameter){
+                parameter.active = !parameter.active
+                parameterRepository.save(parameter)
+            }
+            return res.send(parameter)
+        } catch (error) {
+            console.log(error)
+            return res.status(500).json({message:"Internal Server Error"})
+        }
     }
 }
