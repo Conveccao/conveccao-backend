@@ -8,6 +8,9 @@ export class Parameter {
     @PrimaryGeneratedColumn()
     id: number
 
+    @Column({type:'boolean'})
+    active: boolean
+
     @ManyToOne(() => Station, (station) => station.parameters, {
         onDelete: "CASCADE"
     })
