@@ -17,8 +17,8 @@ describe('getById', () => {
     it(' deve puxar uma estação cadastrada pelo Id', async () =>{
       const station = TesteUtil.giveMeaValidStation();
       mockRepository.find.mockReturnValue([station]);
-      const stationfound = StationControllers.getById("2")
-      expect(stationfound).toMatchObject({nome: station.name})
+      const stationfound = new StationControllers().getById;
+      expect(stationfound).toMatchObject({nome: station.name});
 
     })
   });
@@ -28,7 +28,7 @@ describe("criando estação", () =>{
     const station = TesteUtil.giveMeaValidStation();
     mockRepository.save.mockReturnValue(station);
     mockRepository.create.mockReturnValue(station);
-    const savedstation = await StationControllers.create(station);
+    const savedstation = new StationControllers().create;
     expect(savedstation).toMatchObject(station);
     expect(mockRepository.create).toBeCalledTimes(1);
 
