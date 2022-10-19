@@ -22,6 +22,7 @@ routes.get('/parameters', new ParameterControllers().get)
 routes.get('/parameters/:id', new ParameterControllers().getById)
 routes.delete('/parameters/:id', new ParameterControllers().delete)
 routes.put('/parameters/:id', new ParameterControllers().put)
+routes.put('/parameters/activate/:id', new ParameterControllers().activate)
 
 routes.post('/user', new UserControllers().create)
 routes.get('/users', new UserControllers().get)
