@@ -1,5 +1,9 @@
 import { StationControllers} from "../../src/controllers/stationControllers"
 import TesteUtil from "../../src/common/test/testeUtil"
+import {describe, expect, test, it, jest } from '@jest/globals';
+import { stationRepository } from "../../src/repositories/stationRepository";
+
+const teste = 'testing'
 
 const mockRepository = {
   create: jest.fn(),
@@ -14,23 +18,15 @@ const mockRepository = {
 };
 
 describe('getById', () => {
-    it(' deve puxar uma estação cadastrada pelo Id', async () =>{
-      const station = TesteUtil.giveMeaValidStation();
-      mockRepository.find.mockReturnValue([station]);
-      const stationfound = new StationControllers().getById;
-      expect(stationfound).toMatchObject({nome: station.name});
-
-    })
-  });
-  
-describe("criando estação", () =>{
-  it('Deve criar uma estação', async () => {
-    const station = TesteUtil.giveMeaValidStation();
-    mockRepository.save.mockReturnValue(station);
-    mockRepository.create.mockReturnValue(station);
-    const savedstation = new StationControllers().create;
-    expect(savedstation).toMatchObject(station);
-    expect(mockRepository.create).toBeCalledTimes(1);
-
+     it(' deve puxar uma estação cadastrada pelo Id', async () =>{
+       const station = TesteUtil.giveMeaValidStation();
+      let mockStation = mockRepository.find.mockReturnValue([station]);
+      expect(mockStation).toBeTruthy();
   })
+});
+
+ describe('Teste de test', () => {
+  test('Testing Jest', () => {
+    expect(teste).toBe('testing')
+ });
 })
