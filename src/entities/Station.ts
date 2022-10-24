@@ -19,6 +19,9 @@ export class Station {
     @Column({type: 'float', nullable:false})
     lon: number
 
+    @Column({type: 'text', nullable: true})
+    link: string
+
     @Column({type: 'text', nullable:false}) 
     reference: string     ///referencia de onde esta a estação, tipo endereço
 
