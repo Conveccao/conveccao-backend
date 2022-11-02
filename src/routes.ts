@@ -5,6 +5,7 @@ import { StationControllers } from './controllers/stationControllers'
 import { UserControllers } from './controllers/userControllers'
 import { authMiddleware } from './middleware/authMiddleware'
 import valueController from './controllers/valueController'
+import { GaugedControllers } from './controllers/GaugedControllers'
 
 const routes = Router()
 
@@ -35,4 +36,7 @@ routes.get('/profile', authMiddleware, new UserControllers().getProfile) //// ex
 routes.post('/createValue', valueController.createValue)
 routes.get('/readAllValues', valueController.readAll)
 
+//routes.get('/test-csv', new GaugedControllers().createCsv)
+routes.get('/measures', new GaugedControllers().getAllMeasures)
+routes.get('/station-measures/:id', new GaugedControllers().getAllMeasuresPerStation)
 export default routes
