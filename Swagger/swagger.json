@@ -19,8 +19,16 @@
       "description": "Operações relacionados as estações"
     },
     {
-      "name": "Sensores",
-      "description": "Operações relacionadas aos sensores"
+      "name": "Parametros",
+      "description": "Operações relacionadas aos Parametros"
+    },
+    {
+      "name": "Usuarios",
+      "description": "Operações relacionadas aos Usuarios"
+    },
+    {
+      "name": "Valores",
+      "description": "Operações relacionadas aos Valores recebidos"
     }
   ],
   "schemes": [
@@ -43,7 +51,7 @@
           "302": {
             "description": "retorna as estações registradas",
             "schema": {
-              "$ref": "#/definitions/Station"
+              "$ref": "#/definitions/Parameters"
             }
           }
         }
@@ -154,6 +162,376 @@
             "required": true,
             "schema": {
               "items": {
+                "$ref": "#/definitions/Parameters"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "400": {
+            "description": "ID de estação inválido"
+          },
+          "404": {
+            "description": "Chamado not found"
+          }
+        }
+      }
+    },
+    "/Types": {
+      "post": {
+        "tags": [
+          "Parametros"
+        ],
+        "summary": "Cadastra o tipo de um parametro",
+        "description": "Define qual o tipo de um parametro que foi cadastradado",
+        "operationId": "typeSensor",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ParameterType"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "A estação foi cadastrada com sucesso"
+          }
+        }
+      }
+    },
+    "/parameterTypes(get)": {
+      "get": {
+        "tags": [
+          "Parametros"
+        ],
+        "summary": "Traz todos os parametro cadastrados na plataforma por tipo",
+        "description": "Retorna todos os sensores que possuem um mesmo tipo, cadastrado na plataforma",
+        "operationId": "GetSensorType",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ParameterType"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Retorna todas as estações cadastradas com sucesso"
+          }
+        }
+      }
+    },
+    "/parameters": {
+      "post": {
+        "tags": [
+          "Parametros"
+        ],
+        "summary": "Cadastra um parametro no banco de dados",
+        "description": "envia os dados de um parametro para serem registrados em um banco de dados.",
+        "operationId": "RegisterParameter",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Parameters"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "O Parametro foi cadastrado com sucesso"
+          }
+        }
+      }
+    },
+    "/parameters(get)": {
+      "get": {
+        "tags": [
+          "Parametros"
+        ],
+        "summary": "Retorna de maneira geral todos os parametros cadastrados.",
+        "description": "Retorna, de maneira geral, todos os sensores que estiverem cadastrados na plataforma e todos as suas informações.",
+        "operationId": "GetParameters",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Parameters"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Retonará todos os Parametros cadastrados"
+          }
+        }
+      }
+    },
+    "/parameters/:id": {
+      "get": {
+        "tags": [
+          "Parametros"
+        ],
+        "summary": "Busca um determinado um parametro especifico registrado",
+        "description": "Ultiliza a requisição Get para retornar um sensor por ID.",
+        "operationId": "getParametrosiD",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "302": {
+            "description": "retorna os Parametros registradas",
+            "schema": {
+              "$ref": "#/definitions/Parameters"
+            }
+          }
+        }
+      }
+    },
+    "/parameters/:id (delete)": {
+      "delete": {
+        "tags": [
+          "Parametros"
+        ],
+        "summary": "Deleta um parametro",
+        "description": "através da id, remove um sensor cadastrado no banco de dados da aplicação",
+        "operationId": "deleteParameter",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "ID do Parametro",
+            "in": "body",
+            "description": "Id do Parametro que será deleta",
+            "required": true,
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/ParameterID"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "400": {
+            "description": "ID de Parametro inválido"
+          },
+          "404": {
+            "description": "Chamado not found"
+          }
+        }
+      }
+    },
+    "/parameter/:id (update)": {
+      "put": {
+        "tags": [
+          "Parametros"
+        ],
+        "summary": "Atualiza os dados de um parametro",
+        "description": "Atualiza os dados de um Sensor já cadastrado, alterando os dados solicitados",
+        "operationId": "AtualizarParametros",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Dados que serão atualizados",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ParameterID"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "retorna o Parametro com os dados alterados"
+          }
+        }
+      }
+    },
+    "/user": {
+      "post": {
+        "tags": [
+          "Usuarios"
+        ],
+        "summary": "Cadastra um usuario no banco de dados",
+        "description": "registra uma estações e seus parametros no banco de dados. Remova os parenteses() para utilizar.",
+        "operationId": "registerUser",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "List of user object",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Station"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "O usuario foi cadastrada com sucesso"
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": [
+          "Usuarios"
+        ],
+        "summary": "Busca um determinado um parametro especifico registrado",
+        "description": "Ultiliza a requisição Get para retornar um usuario por ID.",
+        "operationId": "getUsersiD",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "302": {
+            "description": "retorna os Parametros registradas",
+            "schema": {
+              "$ref": "#/definitions/Parameters"
+            }
+          }
+        }
+      }
+    },
+    "/user-exists": {
+      "post": {
+        "tags": [
+          "Usuarios"
+        ],
+        "summary": "Cadastra um usuario no banco de dados",
+        "description": ".",
+        "operationId": "User",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "List of user object",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Station"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "O usuario foi cadastrada com sucesso"
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": [
+          "Usuarios"
+        ],
+        "summary": "Loga o usuario no banco de dados",
+        "description": "o",
+        "operationId": "login",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "List of user object",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Station"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "O usuario fez Login com sucesso"
+          }
+        }
+      }
+    },
+    "/user/:id": {
+      "delete": {
+        "tags": [
+          "Usuarios"
+        ],
+        "summary": "Deleta um Usuario",
+        "description": "através da id, remove uma estação cadastrada no banco de dados da aplicação",
+        "operationId": "deleteUser",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "ID da estação",
+            "in": "body",
+            "description": "Id da Estação que será deleta",
+            "required": true,
+            "schema": {
+              "items": {
                 "$ref": "#/definitions/EstacaoID"
               }
             }
@@ -172,197 +550,14 @@
         }
       }
     },
-    "/sensorTypes": {
-      "post": {
-        "tags": [
-          "Sensores"
-        ],
-        "summary": "Cadastra o tipo de um sensor",
-        "description": "Define qual o tipo de um sensor que foi cadastradado",
-        "operationId": "typeSensor",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "required": true,
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/SensorType"
-              }
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "A estação foi cadastrada com sucesso"
-          }
-        }
-      }
-    },
-    "/sensorTypes(get)": {
-      "get": {
-        "tags": [
-          "Sensores"
-        ],
-        "summary": "Traz todos os sensores cadastrados na plataforma por tipo",
-        "description": "Retorna todos os sensores que possuem um mesmo tipo, cadastrado na plataforma",
-        "operationId": "GetSensorType",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "required": true,
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/SensorType"
-              }
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Retorna todas as estações cadastradas com sucesso"
-          }
-        }
-      }
-    },
-    "/sensors": {
-      "post": {
-        "tags": [
-          "Sensores"
-        ],
-        "summary": "Cadastra um sensor no banco de dados",
-        "description": "envia os dados de um sensor para serem registrados em um banco de dados.",
-        "operationId": "RegisterSensor",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "required": true,
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Sensor"
-              }
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "O sensor foi cadastrado com sucesso"
-          }
-        }
-      }
-    },
-    "/sensors(get)": {
-      "get": {
-        "tags": [
-          "Sensores"
-        ],
-        "summary": "Retorna de maneira geral todos os sensores cadastrados.",
-        "description": "Retorna, de maneira geral, todos os sensores que estiverem cadastrados na plataforma e todos as suas informações.",
-        "operationId": "GetSensors",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "required": true,
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Sensor"
-              }
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Retonará todos os sensores cadastrados"
-          }
-        }
-      }
-    },
-    "/sensors/:id": {
-      "get": {
-        "tags": [
-          "Sensores"
-        ],
-        "summary": "Busca um determinado um sensor especifico registrado",
-        "description": "Ultiliza a requisição Get para retornar um sensor por ID.",
-        "operationId": "getSensoresiD",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [],
-        "responses": {
-          "302": {
-            "description": "retorna as sensores registradas",
-            "schema": {
-              "$ref": "#/definitions/Sensor"
-            }
-          }
-        }
-      }
-    },
-    "/sensors/:id (delete)": {
-      "delete": {
-        "tags": [
-          "Sensores"
-        ],
-        "summary": "Deleta um sensor",
-        "description": "através da id, remove um sensor cadastrado no banco de dados da aplicação",
-        "operationId": "deleteSensor",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "ID do Sensor",
-            "in": "body",
-            "description": "Id do Sensor que será deleta",
-            "required": true,
-            "schema": {
-              "items": {
-                "$ref": "#/definitions/SensorID"
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Ok"
-          },
-          "400": {
-            "description": "ID de Sensor inválido"
-          },
-          "404": {
-            "description": "Chamado not found"
-          }
-        }
-      }
-    },
-    "/sensor/:id (update)": {
+    "/update-user/:id": {
       "put": {
         "tags": [
-          "Sensores"
+          "Usuarios"
         ],
-        "summary": "Atualiza os dados de um sensor",
-        "description": "Atualiza os dados de um Sensor já cadastrado, alterando os dados solicitados",
-        "operationId": "AtualizarSensores",
+        "summary": "Atualiza os dados de uma estação",
+        "description": "Atualiza os dados de uma estação já cadastrada, alterando os dados solicitados",
+        "operationId": "Atualizar",
         "produces": [
           "application/json"
         ],
@@ -375,21 +570,150 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/SensorID"
+                "$ref": "#/definitions/User"
               }
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "retorna o Sensor com os dados alterados"
+            "description": "retorna a estação com os dados alterados"
+          }
+        }
+      }
+    },
+    "/profile": {
+      "get": {
+        "tags": [
+          "Usuarios"
+        ],
+        "summary": "Busca todos os usuarios registrados na plataforma",
+        "description": "Ultiliza a requisição Get para mostrar todos os chamados existentes.Remova os parenteses() para utilizar.",
+        "operationId": "getUsuarios",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "302": {
+            "description": "retorna as estações registradas"
+          }
+        }
+      }
+    },
+    "/createValue": {
+      "post": {
+        "tags": [
+          "Valores"
+        ],
+        "summary": "Cadastra uma rota no banco de dados",
+        "description": "registra uma estações e seus parametros no banco de dados. Remova os parenteses() para utilizar.",
+        "operationId": "registerRotes",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "List of user object",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Station"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "A estação foi cadastrada com sucesso"
+          }
+        }
+      }
+    },
+    "/readAllValues": {
+      "get": {
+        "tags": [
+          "Valores"
+        ],
+        "summary": "Busca todos as estações registradas na plataforma",
+        "description": "Ultiliza a requisição Get para mostrar todos os chamados existentes.Remova os parenteses() para utilizar.",
+        "operationId": "getRotas",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "302": {
+            "description": "retorna as estações registradas",
+            "schema": {
+              "$ref": "#/definitions/Parameters"
+            }
           }
         }
       }
     }
   },
   "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "photo": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        }
+      }
+    },
+    "UserEmail": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        }
+      }
+    },
     "Station": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "photo": {
+          "type": "number"
+        },
+        "role": {
+          "type": "string"
+        }
+      }
+    },
+    "UserID": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        }
+      }
+    },
+    "Parameters": {
       "type": "object",
       "properties": {
         "id": {
@@ -420,7 +744,7 @@
         }
       }
     },
-    "SensorType": {
+    "ParameterType": {
       "type": "object",
       "properties": {
         "tipo": {
@@ -464,41 +788,7 @@
         }
       }
     },
-    "Sensor": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "number"
-        },
-        "station_id": {
-          "type": "number"
-        },
-        "description": {
-          "type": "string"
-        },
-        "model": {
-          "type": "string"
-        },
-        "minrange": {
-          "type": "number"
-        },
-        "maxrange": {
-          "type": "number"
-        },
-        "accurace": {
-          "type": "number"
-        },
-        "startdate": {
-          "type": "string",
-          "format": "date"
-        },
-        "enddate": {
-          "type": "string",
-          "format": "date"
-        }
-      }
-    },
-    "SensorID": {
+    "ParameterID": {
       "type": "number"
     }
   },
