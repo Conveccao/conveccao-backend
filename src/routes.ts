@@ -14,6 +14,8 @@ routes.get('/stations/:id', new StationControllers().getById)
 routes.post('/stations', new StationControllers().create)
 routes.delete('/stations/:id', new StationControllers().delete)
 routes.put('/stations/:id', new StationControllers().update)
+routes.put('/stations/activate/:id', new StationControllers().activate)
+routes.put('/stations/deactivate/:id', new StationControllers().deactivate)
 
 routes.post('/parameterTypes', new ParameterTypeControllers().create)
 routes.get('/parameterTypes', new ParameterTypeControllers().get)
