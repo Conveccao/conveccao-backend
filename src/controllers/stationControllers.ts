@@ -45,7 +45,8 @@ export class StationControllers{
         }
 
         try {
-            const newStation = stationRepository.create({installation_date, name, lat, lon, reference, link})
+            let active: boolean = true;
+            const newStation = stationRepository.create({installation_date, name, lat, lon, reference, link, active})
 
             await stationRepository.save(newStation)
 
