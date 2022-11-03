@@ -13,13 +13,13 @@ export class Station {
     @Column({type: 'text', nullable:false})
     name: string
 
-    @Column({type: 'float', nullable:true}) /// nullable false => não pode ter valor vazio/NULL
-    lat: number
+    @Column({type: 'text', nullable:false}) /// nullable false => não pode ter valor vazio/NULL
+    lat: string
 
-    @Column({type: 'float', nullable:true})
-    lon: number
+    @Column({type: 'text', nullable:false})
+    lon: string
 
-    @Column({type: 'text', nullable: true})
+    @Column({type: 'text', nullable: false})
     link: string
 
     @Column({type: 'text', nullable:false}) 
