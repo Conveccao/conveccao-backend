@@ -67,6 +67,36 @@ export class GaugedControllers{
         }
     }
 
+    async getAllMeasuresPerStationAndParemeter(req: Request, res: Response){
+        try {
+            const stationMeasures: Gauged[] = [];
+            const parameters: Parameter[] = await parameterRepository.find({
+                relations: {
+                    station: true,
+                    parameterType: true
+                }
+            });
+            const measures: Gauged[] = await gaugedRepository.find({
+                relations: {
+                     parameter: true
+                }
+            });
+            measures.forEach((measure: Gauged) => {
+                parameters.forEach((parameter: Parameter) => {
+                    if(measure.parameter.id == parameter.id){
+                        if(parameter.station.id == parseInt(req.params.id) && parameter.parameterType.reference == req.params.ref){
+                            stationMeasures.push(measure);
+                        }
+                    }
+                })
+            });
+            return res.status(200).json(stationMeasures);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({message:"Internal Server Error"});
+        }
+    }
+
     getParametersId = async(id: number) => {
         const parameter = await parameterRepository.findOneBy({
             id: id

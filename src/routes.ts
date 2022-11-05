@@ -19,6 +19,7 @@ routes.put('/stations/deactivate/:id', new StationControllers().deactivate)
 
 routes.post('/parameterTypes', new ParameterTypeControllers().create)
 routes.get('/parameterTypes', new ParameterTypeControllers().get)
+routes.put('/parameterTypes/:id', new ParameterTypeControllers().update)
 
 routes.post('/parameters', new ParameterControllers().create)
 routes.get('/parameters', new ParameterControllers().get)
@@ -41,4 +42,5 @@ routes.get('/readAllValues', valueController.readAll)
 //routes.get('/test-csv', new GaugedControllers().createCsv)
 routes.get('/measures', new GaugedControllers().getAllMeasures)
 routes.get('/station-measures/:id', new GaugedControllers().getAllMeasuresPerStation)
+routes.get('/station-measures/:id/:ref', new GaugedControllers().getAllMeasuresPerStationAndParemeter)
 export default routes

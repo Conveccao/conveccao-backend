@@ -6,6 +6,8 @@ export interface IValue{
     umid: number
     vent: number
     pluv: number
+    vvent: number
+    dvent: number
     unixtime: number
 }
 
@@ -18,6 +20,8 @@ const ValueSchema = new Schema(
         umid: {type: Number},
         vent : {type: Number},
         pluv: {type: Number},
+        vvent: {type: Number},
+        dvent: {type: Number},
         unixtime: {type: Number}
     }, 
     {
