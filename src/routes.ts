@@ -11,6 +11,7 @@ const routes = Router()
 
 routes.get('/stations', new StationControllers().get)
 routes.get('/stations/:id', new StationControllers().getById)
+routes.get('/station-references/:id', new StationControllers().getReferenceByStation)
 routes.post('/stations', new StationControllers().create)
 routes.delete('/stations/:id', new StationControllers().delete)
 routes.put('/stations/:id', new StationControllers().update)

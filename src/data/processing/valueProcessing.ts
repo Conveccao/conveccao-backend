@@ -42,8 +42,8 @@ function verifyParameterType(parameterType: ParameterType, value: IValue){
     if(type === "umid" && value.umid != null) return value.umid
     if(type === "vent" && value.vent != null) return value.vent
     if(type === "pluv" && value.pluv != null) return value.pluv
-    if(type === "v-vent" && value.vvent != null) return value.vvent
-    if(type === "d-vent" && value.dvent != null) return value.dvent
+    if(type === "v_vent" && value.vvent != null) return value.vvent
+    if(type === "d_vent" && value.dvent != null) return value.dvent
     return null
 }
 
