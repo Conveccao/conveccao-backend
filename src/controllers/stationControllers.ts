@@ -112,13 +112,15 @@ export class StationControllers {
         let result = null;
         try {
             const id = parseInt(req.params.id)
-            const station = await this.stationService.findStationById(id);
+            const station = await stationRepository.findOneBy({
+                id: id
+            });
 
             if (station != null) {
                 stationRepository.merge(station, req.body)
                 result = await stationRepository.save(station)
             }
-            return res.send(result);
+            return res.status(200).json(result);
 
         } catch (error) {
             console.log(error);
