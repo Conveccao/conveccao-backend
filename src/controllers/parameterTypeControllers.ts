@@ -37,4 +37,23 @@ export class ParameterTypeControllers{
 
         }
     }
+
+    async update(req: Request, res: Response){
+        try{
+            let result = null;
+            const parameterType = await parameterTypeRepository.findOneBy({
+                id: parseInt(req.params.id)
+            })
+
+            if (parameterType){
+                parameterTypeRepository.merge(parameterType, req.body)
+                result = await parameterTypeRepository.save(parameterType)
+            }
+
+            return res.status(200).json(result)
+        } catch(error){
+            console.log(error);
+            return res.status(500).json({message:"Internal Server Error"})
+        }
+    }
 }

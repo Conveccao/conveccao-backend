@@ -17,11 +17,10 @@ export default async function ValueProcessing(value: IValue) {
     })
     const parameterTypes = await parameterTypeRepository.find()
     let parametersList
-    
     if(station != null){
 
-        if(station?.parameters != undefined){
-            parametersList = await newParameterList(station?.parameters)
+        if(station.parameters != undefined){
+            parametersList = await newParameterList(station.parameters)
         }
 
         parametersList?.forEach(parameter => {
@@ -43,6 +42,8 @@ function verifyParameterType(parameterType: ParameterType, value: IValue){
     if(type === "umid" && value.umid != null) return value.umid
     if(type === "vent" && value.vent != null) return value.vent
     if(type === "pluv" && value.pluv != null) return value.pluv
+    if(type === "v_vent" && value.vvent != null) return value.vvent
+    if(type === "d_vent" && value.dvent != null) return value.dvent
     return null
 }
 

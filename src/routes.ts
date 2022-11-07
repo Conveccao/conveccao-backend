@@ -5,17 +5,22 @@ import { StationControllers } from './controllers/stationControllers'
 import { UserControllers } from './controllers/userControllers'
 import { authMiddleware } from './middleware/authMiddleware'
 import valueController from './controllers/valueController'
+import { GaugedControllers } from './controllers/GaugedControllers'
 
 const routes = Router()
 
 routes.get('/stations', new StationControllers().get)
 routes.get('/stations/:id', new StationControllers().getById)
+routes.get('/station-references/:id', new StationControllers().getReferenceByStation)
 routes.post('/stations', new StationControllers().create)
 routes.delete('/stations/:id', new StationControllers().delete)
 routes.put('/stations/:id', new StationControllers().update)
+routes.put('/stations/activate/:id', new StationControllers().activate)
+routes.put('/stations/deactivate/:id', new StationControllers().deactivate)
 
 routes.post('/parameterTypes', new ParameterTypeControllers().create)
 routes.get('/parameterTypes', new ParameterTypeControllers().get)
+routes.put('/parameterTypes/:id', new ParameterTypeControllers().update)
 
 routes.post('/parameters', new ParameterControllers().create)
 routes.get('/parameters', new ParameterControllers().get)
@@ -35,4 +40,8 @@ routes.get('/profile', authMiddleware, new UserControllers().getProfile) //// ex
 routes.post('/createValue', valueController.createValue)
 routes.get('/readAllValues', valueController.readAll)
 
+//routes.get('/test-csv', new GaugedControllers().createCsv)
+routes.get('/measures', new GaugedControllers().getAllMeasures)
+routes.get('/station-measures/:id', new GaugedControllers().getAllMeasuresPerStation)
+routes.get('/station-measures/:id/:ref', new GaugedControllers().getAllMeasuresPerStationAndParemeter)
 export default routes
