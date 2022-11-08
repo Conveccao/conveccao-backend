@@ -33,7 +33,9 @@ export class UserControllers {
 
     async getByEmail(req: Request, res: Response){
         const { email } = req.body
-        const userExists = await userRepository.findBy({email})
+        const userExists = await userRepository.findOneBy(
+            {email: email}
+        )
         return res.status(200).json(userExists)
     }
 
