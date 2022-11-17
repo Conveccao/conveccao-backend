@@ -26,6 +26,20 @@ export class StationControllers {
         }
     }
 
+    async getActiveStations(req: Request, res: Response) {
+        try {
+            const activeStations = await stationRepository.findBy({
+                active: true
+            });
+
+            res.json(activeStations)
+
+        } catch (error) {
+            console.log(error)
+            return res.status(500).json({ message: "Internal Server Error"})
+        }
+    }
+
     async getById(req: Request, res: Response) {
         //Resgata estação por ID
         try {
@@ -132,7 +146,9 @@ export class StationControllers {
         let result = null;
         try {
             const id = parseInt(req.params.id)
-            const station = await this.stationService.findStationById(id);
+            const station = await stationRepository.findOneBy({
+                id: id
+            });
 
             if (station) {
                 station.active = true
