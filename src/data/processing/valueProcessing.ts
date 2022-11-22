@@ -1,10 +1,12 @@
 import { Parameter } from '../../entities/Parameter';
 import { ParameterType } from '../../entities/ParameterType';
+import { AlertDto } from '../../models/AlertDto';
 import Value, { IValue } from '../../models/Value'
 import { gaugedRepository } from '../../repositories/gaugedRepository';
 import { parameterRepository } from '../../repositories/parameterRepository';
 import { parameterTypeRepository } from '../../repositories/parameterTypeRepository';
 import { stationRepository } from "../../repositories/stationRepository";
+import { AlertService } from '../../services/alertService';
 
 export default async function ValueProcessing(value: IValue) {
     const station = await stationRepository.findOne({
@@ -38,7 +40,17 @@ export default async function ValueProcessing(value: IValue) {
 
 function verifyParameterType(parameterType: ParameterType, value: IValue){
     let type = parameterType.reference
-    if(type === "temp" && value.temp != null) return value.temp
+    const alertService = new AlertService()
+    if(type === "temp" && value.temp != null) {
+        if(value.temp > 33){
+            let tempAlertDto = new AlertDto("Temperatura muito alta", "Campos do Jordão", "22-11-2022", "11:11")
+            alertService.createAlert(tempAlertDto)
+        } else if (value.temp < 10){
+            let tempAlertDto = new AlertDto("Temperatura muito baixa", "Campos do Jordão", "29-11-2022", "11:11")
+            alertService.createAlert(tempAlertDto)
+        }
+        return value.temp
+    } 
     if(type === "umid" && value.umid != null) return value.umid
     if(type === "vent" && value.vent != null) return value.vent
     if(type === "pluv" && value.pluv != null) return value.pluv
