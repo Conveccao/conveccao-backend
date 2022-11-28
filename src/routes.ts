@@ -6,6 +6,8 @@ import { UserControllers } from './controllers/userControllers'
 import { authMiddleware } from './middleware/authMiddleware'
 import valueController from './controllers/valueController'
 import { GaugedControllers } from './controllers/GaugedControllers'
+import CsvController from './controllers/csvController'
+import { AlertControllers } from './controllers/alertControllers'
 
 const routes = Router()
 
@@ -17,6 +19,7 @@ routes.delete('/stations/:id', new StationControllers().delete)
 routes.put('/stations/:id', new StationControllers().update)
 routes.put('/stations/activate/:id', new StationControllers().activate)
 routes.put('/stations/deactivate/:id', new StationControllers().deactivate)
+routes.get('/active-stations', new StationControllers().getActiveStations)
 
 routes.post('/parameterTypes', new ParameterTypeControllers().create)
 routes.get('/parameterTypes', new ParameterTypeControllers().get)
@@ -44,4 +47,9 @@ routes.get('/readAllValues', valueController.readAll)
 routes.get('/measures', new GaugedControllers().getAllMeasures)
 routes.get('/station-measures/:id', new GaugedControllers().getAllMeasuresPerStation)
 routes.get('/station-measures/:id/:ref', new GaugedControllers().getAllMeasuresPerStationAndParemeter)
+
+routes.get('/build-csv/:id', new CsvController().buildCsv)
+
+routes.post('/alert', new AlertControllers().create)
+routes.get('/alerts', new AlertControllers().get)
 export default routes
