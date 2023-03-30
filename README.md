@@ -37,19 +37,19 @@ O servidor iniciará localmente na porta 8080. Use o Insomnia ou o Postman para 
   
 |                                                                    Tipo | Rota                                 | Ação                            |
 | ----------------------------------------------------------------------: | :----------------------------------- | :------------------------------ |
-|   <hr>                                                                  | <hr>                                 | **Controle de Estações e Sensores**        |
-| [![](https://img.shields.io/badge/GET-2E8B57?style=for-the-badge)]() | `/stations/` | Listagem de estações|
-| [![](https://img.shields.io/badge/GET-2E8B57?style=for-the-badge)]() | `/stations/:id`| Dados de uma estação específica|
-| [![](https://img.shields.io/badge/GET-2E8B57?style=for-the-badge)]() | `/sensorTypes`| Listagem de todos os tipos de sensores|
-| [![](https://img.shields.io/badge/GET-2E8B57?style=for-the-badge)]() | `/sensors`| Listagem de todos os sensores|
-| [![](https://img.shields.io/badge/GET-2E8B57?style=for-the-badge)]() | `/sensors/:id`| Dados de um sensor específico |
-| [![](https://img.shields.io/badge/POST-4682B4?style=for-the-badge)]() | `/stations/`| Cadastro de estações |
-| [![](https://img.shields.io/badge/POST-4682B4?style=for-the-badge)]() | `/sensorTypes/`| Cadastro de tipo de sensor|
-| [![](https://img.shields.io/badge/POST-4682B4?style=for-the-badge)]() | `/sensors/`| Cadastro de sensor | 
-| [![](https://img.shields.io/badge/PUT-9370DB?style=for-the-badge)]() | `/stations/:id`| Alteração de dados da estação |
-| [![](https://img.shields.io/badge/PUT-9370DB?style=for-the-badge)]() | `/sensors/:id`| Alteração de dados do sensor |
-| [![](https://img.shields.io/badge/DELETE-CD853F?style=for-the-badge)]() | `/stations/:id`| Exclusão de uma estação específica
-| [![](https://img.shields.io/badge/DELETE-CD853F?style=for-the-badge)]() | `/sensors/:id`| Exclusão de uma sensor específica
+|   <hr>                                                                  | <hr>                                 | **Controle de Parceiros, Membros e Usuários**|
+| [![](https://img.shields.io/badge/GET-2E8B57?style=for-the-badge)]() | `/partners` | Busca por todos os Parceiros|
+| [![](https://img.shields.io/badge/POST-4682B4?style=for-the-badge)]() | `/partners` | Cadastra um Parceiro|
+| [![](https://img.shields.io/badge/PUT-9370DB?style=for-the-badge)]() | `/partners/:id`| Atualiza os Parceiros |
+| [![](https://img.shields.io/badge/DELETE-CD853F?style=for-the-badge)]() | `/partners/:id` | Deleta um Parceiro já cadastrado|
+| [![](https://img.shields.io/badge/GET-2E8B57?style=for-the-badge)]() | `/members`| Busca por todos os Membros |
+| [![](https://img.shields.io/badge/POST-4682B4?style=for-the-badge)]() | `/members` | Cadastro de Membro |
+| [![](https://img.shields.io/badge/PUT-9370DB?style=for-the-badge)]() | `/members/:id`| Atualiza um Membro |
+| [![](https://img.shields.io/badge/DELETE-CD853F?style=for-the-badge)]() | `/members/:id`| Deleta um Membro já cadastrado | 
+| [![](https://img.shields.io/badge/GET-2E8B57?style=for-the-badge)]() | `/users`| Busca por todos os Usuários cadastrados |
+| [![](https://img.shields.io/badge/POST-4682B4?style=for-the-badge)]() | `/register`| Registra um novo Usuário |
+| [![](https://img.shields.io/badge/POST-4682B4?style=for-the-badge)]() | `/login`| Faz Login em um Usuário já existente | 
+| [![](https://img.shields.io/badge/DELETE-CD853F?style=for-the-badge)]() | `/users/:id`| Exclusão de um Usuário |
 
   
  
@@ -57,16 +57,17 @@ Para acessar uma documentação mais avançada, acesse a porta 3001
   
 </div>
 
-### Explicação da estrutura das pastas
+### Explicação da estrutura das principais pastas do PROJETO
 
 | Pasta                                                       | Definição                                                                       |
 | ----------------------------------------------------------- | ------------------------------------------------------------------------------- |
 | :open_file_folder: Swagger                                     | Arquivos com o código de documentação de rotas do projeto                                          |
-| :open_file_folder: src                               | Arquivos com código fonte do projeto |
-| :open_file_folder: src/controllers                          | Arquivos com os métodos de requisição das rota|
-| :open_file_folder: src/entities                             | Arquivos com as entidades do banco de dados do projeto|
-| :open_file_folder: src/app/migrations | Arquivos com os códigos de criação do banco de dados |
-| :open_file_folder: src/app/repositories | Arquivos com os códigos de criação dos repositórios |
+| :open_file_folder: api/core/src                               | Arquivos com código fonte do projeto |
+| :open_file_folder: api/core/src/controllers                          | Arquivos com os métodos de requisição das rota|
+| :open_file_folder: api/core/src/entities                             | Arquivos com as entidades do banco de dados do projeto|
+| :open_file_folder: api/core/src/services                             | Lógica de função do CRUD das Services|
+| :open_file_folder: api/core/src/migrations | Arquivos com os códigos de criação do banco de dados |
+| :open_file_folder: api/core/src/repositories | Arquivos com os códigos de criação dos repositórios |
 
 
 
